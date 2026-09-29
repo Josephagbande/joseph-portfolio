@@ -6,7 +6,7 @@ import { translations, type Lang } from "@/data/translations";
 type LanguageContextType = {
   lang: Lang;
   toggle: () => void;
-  t: typeof translations.fr;
+  t: (typeof translations)[Lang];
 };
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
