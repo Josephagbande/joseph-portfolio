@@ -1,11 +1,12 @@
-import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export const metadata = {
-  metadataBase: new URL("https://josephagbande.com"),
+  metadataBase: new URL("https://joseph-portfolio-cyan.vercel.app"),
   title: "Joseph Agbande | Génie électrique & Développement Web",
   description:
-    "Portfolio de Joseph Agbande, technicien supérieur en génie électrique et énergie renouvelable, avec des compétences en développement web.",
+    "Portfolio de Joseph Agbande, technicien en génie électrique et énergie renouvelable, avec des compétences en développement web.",
   keywords: [
     "Joseph Agbande",
     "développeur web",
@@ -19,8 +20,8 @@ export const metadata = {
   openGraph: {
     title: "Joseph Agbande | Génie électrique & Développement Web",
     description:
-      "Portfolio de Joseph Agbande, technicien supérieur en génie électrique et énergie renouvelable, avec des compétences en développement web.",
-    url: "https://josephagbande.com",
+      "Portfolio de Joseph Agbande, technicien en génie électrique et énergie renouvelable, avec des compétences en développement web.",
+    url: "https://joseph-portfolio-cyan.vercel.app",
     siteName: "Joseph Agbande",
     locale: "fr_FR",
     type: "website",
@@ -52,8 +53,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-  <LanguageProvider>{children}</LanguageProvider>
-</body>
+        <LanguageProvider>
+          <ScrollProgress />
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

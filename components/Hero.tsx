@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { useLanguage } from "./LanguageProvider";
@@ -8,6 +8,7 @@ import { useLanguage } from "./LanguageProvider";
 export default function Hero() {
   const rootRef = useRef<HTMLElement>(null);
   const { t } = useLanguage();
+  const [typed, setTyped] = useState("");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,6 +23,18 @@ export default function Hero() {
 
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    setTyped("");
+    const text = t.hero.tagline;
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      setTyped(text.slice(0, i));
+      if (i >= text.length) clearInterval(interval);
+    }, 30);
+    return () => clearInterval(interval);
+  }, [t.hero.tagline]);
 
   return (
     <section id="accueil" ref={rootRef} className="flex min-h-screen items-center pt-16">
@@ -41,7 +54,8 @@ export default function Hero() {
           </p>
 
           <p className="hero-anim mt-6 max-w-xl text-lg text-gray-600 dark:text-gray-300">
-            {t.hero.tagline}
+            {typed}
+            <span className="animate-pulse">|</span>
           </p>
 
           <div className="hero-anim mt-8 flex flex-wrap gap-4">
