@@ -1,7 +1,11 @@
+"use client";
+
 import { contact } from "@/data/contact";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="border-t border-gray-200 py-10 dark:border-gray-800">
@@ -9,7 +13,7 @@ export default function Footer() {
         <div>
           <p className="font-semibold">Joseph Agbande</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Technicien en génie électrique &amp; énergie renouvelable | Développeur web
+            {t.footer.title}
           </p>
         </div>
 
@@ -35,7 +39,7 @@ export default function Footer() {
       </div>
 
       <p className="mt-6 text-center text-xs text-gray-400 dark:text-gray-500">
-        © {year} Joseph Agbande. Tous droits réservés.
+        © {year} Joseph Agbande. {t.footer.rights}
       </p>
     </footer>
   );

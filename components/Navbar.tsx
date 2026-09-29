@@ -2,18 +2,14 @@
 
 import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "./LanguageProvider";
 
-const links = [
-  { label: "Accueil", href: "accueil" },
-  { label: "À propos", href: "apropos" },
-  { label: "Compétences", href: "competences" },
-  { label: "Projets", href: "projets" },
-  { label: "Parcours", href: "parcours" },
-  { label: "Objectifs", href: "temoignages" },
-  { label: "Contact", href: "contact" },
-];
+const hrefs = ["accueil", "apropos", "competences", "projets", "parcours", "temoignages", "contact"] as const;
+const navKeys = ["accueil", "apropos", "competences", "projets", "parcours", "objectifs", "contact"] as const;
 
 export default function Navbar() {
+  const { t } = useLanguage();
   const [active, setActive] = useState("accueil");
   const [open, setOpen] = useState(false);
 
@@ -27,7 +23,7 @@ export default function Navbar() {
       { rootMargin: "-40% 0px -55% 0px" }
     );
 
-    links.forEach(({ href }) => {
+    hrefs.forEach((href) => {
       const section = document.getElementById(href);
       if (section) observer.observe(section);
     });
@@ -46,23 +42,25 @@ export default function Navbar() {
         </a>
 
         <ul className="hidden items-center gap-6 lg:flex">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a href={`#${link.href}`} className={`text-sm transition-colors hover:text-emerald-600 ${active === link.href ? "font-semibold text-emerald-600" : "text-gray-600 dark:text-gray-300"}`}>
-                {link.label}
+          {hrefs.map((href, i) => (
+            <li key={href}>
+              <a href={`#${href}`} className={`text-sm transition-colors hover:text-emerald-600 ${active === href ? "font-semibold text-emerald-600" : "text-gray-600 dark:text-gray-300"}`}>
+                {t.nav[navKeys[i]]}
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-3 lg:flex">
+          <LanguageToggle />
           <ThemeToggle />
           <a href="#contact" className="rounded-full bg-emerald-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-emerald-700">
-            Me contacter
+            {t.nav.meContacter}
           </a>
         </div>
 
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
+          <LanguageToggle />
           <ThemeToggle />
           <button
             type="button"
@@ -81,16 +79,16 @@ export default function Navbar() {
       {open && (
         <div className="border-t border-black/10 bg-white px-6 py-4 dark:border-white/10 dark:bg-black lg:hidden">
           <ul className="flex flex-col gap-4">
-            {links.map((link) => (
-              <li key={link.href}>
-                <a href={`#${link.href}`} onClick={() => setOpen(false)} className={active === link.href ? "font-semibold text-emerald-600" : "text-gray-700 dark:text-gray-300"}>
-                  {link.label}
+            {hrefs.map((href, i) => (
+              <li key={href}>
+                <a href={`#${href}`} onClick={() => setOpen(false)} className={active === href ? "font-semibold text-emerald-600" : "text-gray-700 dark:text-gray-300"}>
+                  {t.nav[navKeys[i]]}
                 </a>
               </li>
             ))}
             <li>
               <a href="#contact" onClick={() => setOpen(false)} className="inline-block rounded-full bg-emerald-600 px-5 py-2 text-sm font-medium text-white">
-                Me contacter
+                {t.nav.meContacter}
               </a>
             </li>
           </ul>

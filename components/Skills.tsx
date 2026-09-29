@@ -4,11 +4,13 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { skillCategories } from "@/data/skills";
+import { useLanguage } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Skills() {
   const rootRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,7 +38,7 @@ export default function Skills() {
   return (
     <section id="competences" ref={rootRef} className="flex min-h-screen items-center py-24">
       <div className="mx-auto w-full max-w-6xl px-6">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Compétences</h2>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.skills.heading}</h2>
         <div className="mt-2 h-1 w-16 rounded bg-emerald-600" />
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

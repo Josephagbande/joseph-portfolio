@@ -1,3 +1,4 @@
+import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
 
 export const metadata = {
@@ -50,7 +51,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+  <LanguageProvider>{children}</LanguageProvider>
+</body>
     </html>
   );
 }

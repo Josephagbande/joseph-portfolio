@@ -3,12 +3,13 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { experiences } from "@/data/experience";
+import { useLanguage } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
   const rootRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -31,11 +32,11 @@ export default function Experience() {
   return (
     <section id="parcours" ref={rootRef} className="flex min-h-screen items-center py-24">
       <div className="mx-auto w-full max-w-4xl px-6">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Parcours</h2>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.experience.heading}</h2>
         <div className="mt-2 h-1 w-16 rounded bg-emerald-600" />
 
         <ol className="mt-12 border-l-2 border-emerald-600/30">
-          {experiences.map((item) => (
+          {t.experience.items.map((item) => (
             <li key={item.title} className="timeline-item relative pb-10 pl-8 last:pb-0">
               <span className="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full border-2 border-emerald-600 bg-white dark:bg-black" />
               <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">{item.date}</p>

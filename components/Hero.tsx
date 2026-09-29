@@ -3,9 +3,11 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Hero() {
   const rootRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -27,7 +29,7 @@ export default function Hero() {
         <div>
           <p className="hero-anim mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-600/30 px-3 py-1 text-sm text-emerald-700 dark:text-emerald-400">
             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-            Disponible pour un emploi ou un stage
+            {t.hero.badge}
           </p>
 
           <h1 className="hero-anim text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
@@ -35,22 +37,22 @@ export default function Hero() {
           </h1>
 
           <p className="hero-anim mt-4 text-lg font-medium text-emerald-700 dark:text-emerald-400 sm:text-xl">
-            Technicien en génie électrique &amp; énergie renouvelable | Développeur web
+            {t.hero.title}
           </p>
 
           <p className="hero-anim mt-6 max-w-xl text-lg text-gray-600 dark:text-gray-300">
-            Je transforme les idées en solutions numériques et énergétiques.
+            {t.hero.tagline}
           </p>
 
           <div className="hero-anim mt-8 flex flex-wrap gap-4">
             <a href="#projets" className="rounded-full bg-emerald-600 px-6 py-3 font-medium text-white transition hover:bg-emerald-700">
-              Voir mes projets
+              {t.hero.seeProjects}
             </a>
             <a href="#contact" className="rounded-full border border-gray-300 px-6 py-3 font-medium transition hover:border-emerald-600 hover:text-emerald-600 dark:border-gray-700">
-              Me contacter
+              {t.hero.contactMe}
             </a>
             <a href="/cv/joseph-agbande-cv.pdf" download className="rounded-full border border-gray-300 px-6 py-3 font-medium transition hover:border-emerald-600 hover:text-emerald-600 dark:border-gray-700">
-              Télécharger mon CV
+              {t.hero.downloadCv}
             </a>
           </div>
         </div>

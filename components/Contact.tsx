@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useForm, ValidationError } from "@formspree/react";
 import { contact } from "@/data/contact";
+import { useLanguage } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,7 @@ const inputClass =
 export default function Contact() {
   const rootRef = useRef<HTMLElement>(null);
   const [state, handleSubmit] = useForm("maenaewj");
+  const { t } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -38,22 +40,22 @@ export default function Contact() {
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 lg:grid-cols-2">
         <div className="contact-anim">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Construisons quelque chose ensemble.
+            {t.contact.heading}
           </h2>
           <div className="mt-2 h-1 w-16 rounded bg-emerald-600" />
           <p className="mt-6 max-w-md text-lg text-gray-600 dark:text-gray-300">
-            Vous avez un projet, une opportunité ou une idée à développer ? Échangeons.
+            {t.contact.text}
           </p>
 
           <ul className="mt-8 space-y-3 text-gray-700 dark:text-gray-200">
             <li>
               <a href={`mailto:${contact.email}`} className="hover:text-emerald-600">
-                Email : {contact.email}
+                {t.contact.emailLabel} : {contact.email}
               </a>
             </li>
             <li>
               <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-emerald-600">
-                Téléphone : {contact.phone}
+                {t.contact.phoneLabel} : {contact.phone}
               </a>
             </li>
             <li>
@@ -74,7 +76,7 @@ export default function Contact() {
         {state.succeeded ? (
           <div className="contact-anim flex items-center justify-center rounded-2xl border border-emerald-600/30 bg-emerald-600/5 p-8">
             <p className="text-center text-lg text-emerald-700 dark:text-emerald-400">
-              Merci ! Votre message a bien été envoyé, je vous répondrai rapidement.
+              {t.contact.success}
             </p>
           </div>
         ) : (
@@ -87,27 +89,27 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="name" className="text-sm font-medium">Nom</label>
+              <label htmlFor="name" className="text-sm font-medium">{t.contact.nameLabel}</label>
               <input id="name" name="name" type="text" required minLength={2} autoComplete="name" className={inputClass} />
-              <ValidationError prefix="Nom" field="name" errors={state.errors} className="mt-1 text-sm text-red-600" />
+              <ValidationError prefix={t.contact.nameLabel} field="name" errors={state.errors} className="mt-1 text-sm text-red-600" />
             </div>
 
             <div>
-              <label htmlFor="email" className="text-sm font-medium">Email</label>
+              <label htmlFor="email" className="text-sm font-medium">{t.contact.emailFieldLabel}</label>
               <input id="email" name="email" type="email" required autoComplete="email" className={inputClass} />
-              <ValidationError prefix="Email" field="email" errors={state.errors} className="mt-1 text-sm text-red-600" />
+              <ValidationError prefix={t.contact.emailFieldLabel} field="email" errors={state.errors} className="mt-1 text-sm text-red-600" />
             </div>
 
             <div>
-              <label htmlFor="subject" className="text-sm font-medium">Sujet</label>
+              <label htmlFor="subject" className="text-sm font-medium">{t.contact.subjectLabel}</label>
               <input id="subject" name="subject" type="text" required minLength={3} className={inputClass} />
-              <ValidationError prefix="Sujet" field="subject" errors={state.errors} className="mt-1 text-sm text-red-600" />
+              <ValidationError prefix={t.contact.subjectLabel} field="subject" errors={state.errors} className="mt-1 text-sm text-red-600" />
             </div>
 
             <div>
-              <label htmlFor="message" className="text-sm font-medium">Message</label>
+              <label htmlFor="message" className="text-sm font-medium">{t.contact.messageLabel}</label>
               <textarea id="message" name="message" rows={5} required minLength={10} className={inputClass} />
-              <ValidationError prefix="Message" field="message" errors={state.errors} className="mt-1 text-sm text-red-600" />
+              <ValidationError prefix={t.contact.messageLabel} field="message" errors={state.errors} className="mt-1 text-sm text-red-600" />
             </div>
 
             <button
@@ -115,7 +117,7 @@ export default function Contact() {
               disabled={state.submitting}
               className="rounded-full bg-emerald-600 px-6 py-3 font-medium text-white transition hover:bg-emerald-700 disabled:opacity-60"
             >
-              {state.submitting ? "Envoi en cours..." : "Envoyer le message"}
+              {state.submitting ? t.contact.sending : t.contact.send}
             </button>
 
             <ValidationError errors={state.errors} className="text-sm text-red-600" />
